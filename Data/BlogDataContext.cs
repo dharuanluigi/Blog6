@@ -16,8 +16,7 @@ namespace Blog.Data
     // instance configuration
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-      options.UseSqlServer("Server=localhost,1433;Database=Blog;User ID=sa;Password=Brasil@2022");
-      options.LogTo(Console.WriteLine);
+      options.UseSqlServer("Server=localhost,1433;Database=Blog;User ID=sa;Password=Brasil@2022;TrustServerCertificate=True");
     }
 
     // model configuration when creating using maps do that.
