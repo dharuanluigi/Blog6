@@ -9,7 +9,7 @@ namespace Blog6.Extensions
     {
       var result = new List<Claim>();
 
-      result.Add(new Claim(ClaimTypes.Name, user.Name));
+      result.Add(new Claim(ClaimTypes.Name, user.Email));
 
       result.AddRange(user.Roles.Select(r => new Claim(ClaimTypes.Role, r.Name)));
 
