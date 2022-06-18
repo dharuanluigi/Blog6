@@ -1,4 +1,5 @@
 ﻿using Blog.Models;
+using Blog6.Configurations;
 using Blog6.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
