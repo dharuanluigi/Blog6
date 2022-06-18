@@ -1,4 +1,4 @@
-﻿namespace Blog6.ViewModels
+﻿namespace Blog6.ViewModels.Accounts
 {
   public class ResultUserViewModel
   {
