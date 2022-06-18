@@ -7,6 +7,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureAuthentication(builder);
+ConfigureMvc(builder);
 ConfigureServices(builder);
 
 var app = builder.Build();
@@ -34,16 +35,18 @@ void ConfigureAuthentication(WebApplicationBuilder builder)
     };
   });
 }
-void ConfigureServices(WebApplicationBuilder builder)
+void ConfigureMvc(WebApplicationBuilder builder)
 {
   builder
   .Services
   .AddControllers()
   .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
-
+}
+void ConfigureServices(WebApplicationBuilder builder)
+{
   builder.Services.AddDbContext<BlogDataContext>();
-
   builder.Services.AddTransient<TokenService>();
+  builder.Services.AddTransient<SendEmailService>();
 }
 void LoadConfiguration(WebApplication app)
 {

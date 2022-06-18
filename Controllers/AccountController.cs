@@ -14,7 +14,7 @@ namespace Blog6.Controllers
   public class AccountController : ControllerBase
   {
     [HttpPost("v1/account")]
-    public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserViewModel createUserViewModel, [FromServices] BlogDataContext context)
+    public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserViewModel createUserViewModel, [FromServices] SendEmailService emailSender, [FromServices] BlogDataContext context)
     {
       if (!ModelState.IsValid)
       {
@@ -35,6 +35,8 @@ namespace Blog6.Controllers
       {
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
+
+        emailSender.Send(user.Name, user.Email, "Password access", $"Your password is: <strong>{password}</strong>");
 
         var result = new ResultUserViewModel
         {
