@@ -4,6 +4,7 @@ using Blog6.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureAuthentication(builder);
@@ -40,7 +41,12 @@ void ConfigureMvc(WebApplicationBuilder builder)
   builder
   .Services
   .AddControllers()
-  .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+  .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
+  .AddJsonOptions(options =>
+  {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // avoid cicle dependencies btw classes
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault; // not deserelize when value is null
+  });
 }
 void ConfigureServices(WebApplicationBuilder builder)
 {

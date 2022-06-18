@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Blog.Models
 {
@@ -10,6 +11,7 @@ namespace Blog.Models
 
     public string? Email { get; set; }
 
+    [JsonIgnore]
     public string? Password { get; set; }
 
     public string? Image { get; set; }
