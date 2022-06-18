@@ -3,10 +3,12 @@ using Blog.Models;
 using Blog6.Extensions;
 using Blog6.Services;
 using Blog6.ViewModels;
+using Blog6.ViewModels.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
+using System.Text.RegularExpressions;
 
 namespace Blog6.Controllers
 {
@@ -85,6 +87,51 @@ namespace Blog6.Controllers
       catch
       {
         return StatusCode(500, new ResultViewModel<string>("An error occurred when try to login"));
+      }
+    }
+
+    [Authorize]
+    [HttpPost("v1/account/upload-image")]
+    public async Task<IActionResult> UploadImageAsync([FromBody] UploadImageViewModel uploadImageViewModel, [FromServices] BlogDataContext context)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
+      }
+
+      var fileName = $"{Guid.NewGuid().ToString()}.jpg";
+      var data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(uploadImageViewModel.Base64Image, "");
+      var bytes = Convert.FromBase64String(data);
+
+      try
+      {
+        await System.IO.File.WriteAllBytesAsync($"wwwroot/images/{fileName}", bytes);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return StatusCode(500, new ResultViewModel<string>("Occurred an error when try to generate image"));
+      }
+
+      var user = await context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+
+      if (user is null)
+      {
+        return NotFound(new ResultViewModel<User>("The user not found"));
+      }
+
+      try
+      {
+        user.Image = $"https://localhost:0000/images/{fileName}";
+
+        context.Users.Update(user);
+        await context.SaveChangesAsync();
+        return Ok(new ResultViewModel<string>("Image updated successfully", null));
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return StatusCode(500, new ResultViewModel<string>("Occurred an error when try to save image"));
       }
     }
   }
