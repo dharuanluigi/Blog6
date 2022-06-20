@@ -15,6 +15,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityframeworkCore.Sqlserver" Version="6.0.6" />
     <PackageReference Include="SecureIdentity" Version="1.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>

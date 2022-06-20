@@ -26,7 +26,8 @@ app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
-  Console.WriteLine("Testing... I'm in development mode!");
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.Run();
@@ -75,6 +76,9 @@ void ConfigureServices(WebApplicationBuilder builder)
   builder.Services.AddDbContext<BlogDataContext>(options => options.UseSqlServer(connectionString));
   builder.Services.AddTransient<TokenService>();
   builder.Services.AddTransient<SendEmailService>();
+
+  builder.Services.AddEndpointsApiExplorer();
+  builder.Services.AddSwaggerGen();
 }
 void LoadConfiguration(WebApplication app)
 {
