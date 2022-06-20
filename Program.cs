@@ -33,7 +33,7 @@ app.Run();
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
 {
-  var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
+  var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JwtKey"));
   builder.Services.AddAuthentication(options =>
   {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
