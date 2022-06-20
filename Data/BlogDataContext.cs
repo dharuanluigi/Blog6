@@ -13,10 +13,8 @@ namespace Blog.Data
 
     public DbSet<User> Users { get; set; }
 
-    // instance configuration
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    public BlogDataContext(DbContextOptions<BlogDataContext> options) : base(options)
     {
-      options.UseSqlServer("Server=localhost,1433;Database=Blog;User ID=sa;Password=Brasil@2022;TrustServerCertificate=True");
     }
 
     // model configuration when creating using maps do that.
