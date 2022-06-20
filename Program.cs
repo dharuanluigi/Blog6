@@ -16,6 +16,7 @@ LoadConfiguration(app);
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles();
 app.Run();
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
