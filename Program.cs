@@ -21,6 +21,12 @@ app.UseAuthorization();
 app.UseResponseCompression();
 app.MapControllers();
 app.UseStaticFiles();
+
+if (app.Environment.IsDevelopment())
+{
+  Console.WriteLine("Testing... I'm in development mode!");
+}
+
 app.Run();
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
