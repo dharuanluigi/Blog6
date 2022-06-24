@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_SERVER_CONNECTION_STRING }}
+  ConnectionStrings__SqlServerConnection: ${{ secrets.AZURE_SQL_SERVER_CONNECTION_STRING }}
 
 jobs:
   build:
