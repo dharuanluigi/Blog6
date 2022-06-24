@@ -15,24 +15,24 @@ namespace Blog6.Services
       string fromEmail = "some-email"
       )
     {
-      var smtpClient = new SmtpClient(Configuration.Smtp.Host, Configuration.Smtp.Port)
-      {
-        Credentials = new NetworkCredential(Configuration.Smtp.UserName, Configuration.Smtp.Password),
-        DeliveryMethod = SmtpDeliveryMethod.Network,
-        EnableSsl = true
-      };
-
-      var mail = new MailMessage
-      {
-        From = new MailAddress(fromEmail, fromName)
-      };
-      mail.To.Add(new MailAddress(toEmail, toName));
-      mail.Subject = subject;
-      mail.Body = body;
-      mail.IsBodyHtml = true;
-
       try
       {
+        var smtpClient = new SmtpClient(Configuration.Smtp.Host, int.Parse(Configuration.Smtp.Port))
+        {
+          Credentials = new NetworkCredential(Configuration.Smtp.UserName, Configuration.Smtp.Password),
+          DeliveryMethod = SmtpDeliveryMethod.Network,
+          EnableSsl = true
+        };
+
+        var mail = new MailMessage
+        {
+          From = new MailAddress(fromEmail, fromName)
+        };
+        mail.To.Add(new MailAddress(toEmail, toName));
+        mail.Subject = subject;
+        mail.Body = body;
+        mail.IsBodyHtml = true;
+
         smtpClient.Send(mail);
         return true;
       }
