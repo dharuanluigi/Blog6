@@ -124,6 +124,7 @@ namespace Blog6.Controllers
       }
       catch (Exception e)
       {
+        Console.WriteLine(e);
         return StatusCode(500, new ResultViewModel<Category>("Occurred an error when try to delete the specified category"));
       }
     }

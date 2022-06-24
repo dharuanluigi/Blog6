@@ -2,12 +2,12 @@
 {
   public static class Configuration
   {
-    public static string JwtKey { get; set; }
+    public static string JwtKey { get; set; } = string.Empty;
 
-    public static string ApiKeyName { get; set; }
+    public static string ApiKeyName { get; set; } = string.Empty;
 
-    public static string ApiKey { get; set; }
+    public static string ApiKey { get; set; } = string.Empty;
 
-    public static SmtpConfiguration Smtp { get; set; }
+    public static SmtpConfiguration Smtp { get; set; } = null!;
   }
 }

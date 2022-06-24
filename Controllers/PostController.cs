@@ -15,6 +15,8 @@ namespace Blog6.Controllers
     {
       try
       {
+#pragma warning disable CS8601 // Possible null reference assignment.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         var posts = await context
                           .Posts
                           .AsNoTracking()
@@ -33,6 +35,8 @@ namespace Blog6.Controllers
                           .Take(pageSize)
                           .OrderByDescending(p => p.LastUpdateDate)
                           .ToListAsync();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8601 // Possible null reference assignment.
 
         if (posts is null || posts.Count == 0)
         {
@@ -47,7 +51,7 @@ namespace Blog6.Controllers
           Posts = posts
         };
 
-        return Ok(new ResultViewModel<ResultPostsViewModel>(result, null));
+        return Ok(new ResultViewModel<ResultPostsViewModel>(result, null!));
       }
       catch (Exception e)
       {
@@ -61,6 +65,7 @@ namespace Blog6.Controllers
     {
       try
       {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         var post = await context
           .Posts
           .AsNoTracking()
@@ -68,6 +73,7 @@ namespace Blog6.Controllers
             .ThenInclude(a => a.Roles)
           .Include(p => p.Category)
           .FirstOrDefaultAsync(p => p.Id == id);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
         if (post is null)
         {
@@ -88,6 +94,8 @@ namespace Blog6.Controllers
     {
       try
       {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8601 // Possible null reference assignment.
         var posts = await context
           .Posts
           .AsNoTracking()
@@ -107,6 +115,8 @@ namespace Blog6.Controllers
           .Take(pageSize)
           .OrderByDescending(p => p.LastUpdateDate)
           .ToListAsync();
+#pragma warning restore CS8601 // Possible null reference assignment.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
         if (posts is null || posts.Count == 0)
         {

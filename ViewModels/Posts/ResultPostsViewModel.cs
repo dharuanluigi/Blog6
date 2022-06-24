@@ -8,6 +8,6 @@
 
     public int PageSize { get; set; }
 
-    public IList<ListPostsViewModel> Posts { get; set; }
+    public IList<ListPostsViewModel> Posts { get; set; } = null!;
   }
 }

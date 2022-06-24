@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Blog.Models
@@ -24,6 +23,6 @@ namespace Blog.Models
 
     public IList<Role>? Roles { get; set; }
 
-    public string GitHub { get; set; }
+    public string GitHub { get; set; } = string.Empty;
   }
 }

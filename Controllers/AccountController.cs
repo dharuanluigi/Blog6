@@ -82,7 +82,7 @@ namespace Blog6.Controllers
       try
       {
         var token = tokenService.GenerateToken(user);
-        return Ok(new ResultViewModel<string>(token, null));
+        return Ok(new ResultViewModel<string>(token, null!));
       }
       catch
       {
@@ -113,7 +113,9 @@ namespace Blog6.Controllers
         return StatusCode(500, new ResultViewModel<string>("Occurred an error when try to generate image"));
       }
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
       var user = await context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
       if (user is null)
       {
@@ -126,7 +128,7 @@ namespace Blog6.Controllers
 
         context.Users.Update(user);
         await context.SaveChangesAsync();
-        return Ok(new ResultViewModel<string>("Image updated successfully", null));
+        return Ok(new ResultViewModel<string>("Image updated successfully", null!));
       }
       catch (Exception e)
       {
